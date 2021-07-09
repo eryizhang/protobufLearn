@@ -1,0 +1,10 @@
+syntax="proto3";
+option java_outer_classname="Ownerpro";
+import "house.proto";
+message Owner{
+  string name=1;
+  string phone=2;
+  int64 age=3;
+  repeated House houses=4;
+}
+

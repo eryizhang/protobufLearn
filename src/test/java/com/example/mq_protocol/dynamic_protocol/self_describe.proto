@@ -1,0 +1,9 @@
+syntax="proto3";
+option java_outer_classname="SelfDescribePro";
+import "google/protobuf/descriptor.proto";
+message SelfDescribe{
+  google.protobuf.FileDescriptorSet descriptor_set = 1;
+  string name=2;
+  bytes message=3;
+}
+

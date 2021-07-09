@@ -1,0 +1,7 @@
+syntax="proto3";
+option java_package="com.example.mq_protocol.dynamic_protocol";
+option java_outer_classname="RoundUppro";
+message RoundUp{
+  string className=1;
+  bytes message=2;
+}
