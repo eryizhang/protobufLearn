@@ -75,6 +75,9 @@ public class DynamicProtocolTest {
         Method method=cl.getMethod("parseFrom",ByteString.class);
         Object owner1= method.invoke(cl,rr.getMessage());
         System.out.println(owner.getHousesList().size());
+
+
+        System.out.println("s");
     }
 
     //从生成的类中获取descriptor，通过动态反解
