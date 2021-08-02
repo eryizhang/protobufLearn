@@ -1,0 +1,5 @@
+syntax="proto3";
+option java_outer_classname="Testpro";
+message Test{
+  bytes bs=1;
+}

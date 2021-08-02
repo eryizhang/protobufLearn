@@ -1,0 +1,5 @@
+syntax="proto3";
+option java_outer_classname="Bytespro";
+message Bytes{
+  bytes xiaoqu=1;
+}

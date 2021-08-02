@@ -1,4 +1,5 @@
 syntax="proto3";
+package test;
 option java_package="com.example.mq_protocol.dynamic_protocol";
 option java_outer_classname="Housepro";
 message House{

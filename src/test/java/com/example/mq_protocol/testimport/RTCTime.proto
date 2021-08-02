@@ -1,0 +1,11 @@
+syntax="proto3";
+option java_outer_classname="RTCTimeProto";
+message RTCTime{//RTCtime 结构体
+    uint32 year=1;
+    uint32 month=2;
+    uint32 date=3;
+    uint32 weekday=4;
+    uint32 hours=5;
+    uint32 minutes=6;
+    uint32 seconds=7;
+}

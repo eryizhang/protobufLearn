@@ -3,15 +3,13 @@ package com.example.mq_protocol.dynamic_protocol;
 import com.google.protobuf.*;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DynamicProtocolTest {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InvalidProtocolBufferException {
         Ownerpro.Owner.Builder ownerbuilder = Ownerpro.Owner.newBuilder();
         ownerbuilder.setAge(56);
         ownerbuilder.setName("ls");
@@ -34,9 +32,14 @@ public class DynamicProtocolTest {
         Ownerpro.Owner owner=ownerbuilder.build();
 
 
+
+
         byte[] ba=owner.toByteArray();
 
         ByteString bs=owner.toByteString();
+
+        Ownerpro.Owner owner1=Ownerpro.Owner.parseFrom(ba);
+        System.out.println(owner1.getHousesList().size());
 
         /*try {
             SendAndRead1( ba);
@@ -57,7 +60,19 @@ public class DynamicProtocolTest {
         }
 
     }
+    static void compareString()
+    {
+        Ownerpro.Owner.Builder builder=Ownerpro.Owner.newBuilder();
+        builder.setPhone("abcdesdfasdesd44fg");
+        builder.setName("asdfasdfasdfaasdfa");
+        Ownerpro.Owner owner=builder.build();
+        ByteString bs=owner.toByteString();
 
+        Ownerpro.Owner.Builder builder1=Ownerpro.Owner.newBuilder();
+
+        builder1.setPhone("abcdesdfasdesd44fg");
+        builder1.setName("asdfasdfasdfaasdfa");
+    }
     //标识类的信息，利用反射调用方法反解数据
     static void  sendAndRead3(ByteString bs) throws Exception {
         RoundUppro.RoundUp.Builder builder=RoundUppro.RoundUp.newBuilder();
@@ -80,6 +95,7 @@ public class DynamicProtocolTest {
         System.out.println("s");
     }
 
+
     //从生成的类中获取descriptor，通过动态反解
     static void sendAndRead2(byte[] ba) throws InvalidProtocolBufferException {
 
@@ -88,6 +104,9 @@ public class DynamicProtocolTest {
         System.out.println(descriptor.getFullName());
         System.out.println(descriptor.getIndex());
         System.out.println(dynamicMessage.getField(descriptor.findFieldByNumber(1)));
+        System.out.println(dynamicMessage.getField(descriptor.findFieldByNumber(2)));
+        System.out.println(dynamicMessage.getField(descriptor.findFieldByNumber(3)));
+        System.out.println(dynamicMessage.getField(descriptor.findFieldByNumber(4)));
         //dynamicMessage.getField(descriptor.getIndex())
         //dynamicMessage.getField(descriptor.findFieldByNumber());
         System.out.println(dynamicMessage.getAllFields());
@@ -97,7 +116,7 @@ public class DynamicProtocolTest {
     }
 
     //生成description文件，通过getname获取到需要的descriptor，反解
-    static void SendAndRead1(byte[] ba) throws IOException, Descriptors.DescriptorValidationException, InterruptedException {
+    static void SendAndRead1(byte[] ba) throws Exception {
         SelfDescribePro.SelfDescribe.Builder selfBuider=SelfDescribePro.SelfDescribe.newBuilder();
 /*        String protocCMD = "protoc --descriptor_set_out=D://projects//mq_protocol//src//test//java//com//example//mq_protocol//dynamic_protocol//dynamic.description D://projects//mq_protocol//src//test//java//com//example//mq_protocol//dynamic_protocol//dynamic.proto --proto_path=D://projects//mq_protocol//src//test//java//com//example//mq_protocol//dynamic_protocol//";
         Process process = Runtime.getRuntime().exec(protocCMD);

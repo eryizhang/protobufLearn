@@ -1,0 +1,36 @@
+syntax="proto3";
+option java_outer_classname="LocationProto";
+message Wifi{//wifi实体定义
+  string mac=1;
+  sint32 signal=2;
+  string ssid=3;
+}
+message BaseStation{//基站定义
+  uint32 mcc=1;//MCC，Mobile Country Code，移动国家代码（中国的为460）
+  uint32 mnc=2;//MNC，Mobile Network Code，移动网络号码（中国移动为0，中国联通为1，中国电信为2）
+  uint64 lac=3;//LAC，Location Area Code，位置区域码；
+  uint64 cellid=4;//CID，Cell Identity，基站编号；
+  sint32 signal=5;//Base station signal strength，基站信号强度。
+  sint32 networkType=6;//网络制式 1:GSM 2:CDMA 3:WCDMA 4:TD_CDMA 5:LTE
+  sint32 signalLength=7;//当前基站广播信号强度
+}
+message Location{//V3新制定：定位信息，包含gps，wifi，基站等
+  uint64 timestamp=1;//时间戳
+  bool gpsValid=2;//gps是否可用
+  double longitude=3;//经度
+  double latitude=4;//纬度
+  double altitude=5;//高度
+  uint32 coordinateSystem=6;//坐标类型
+  sint32 fix=7;// GNSS定位模式 2:2D定位 3:3D定位（引自GAGSA/GPGSA语句）
+  double cog=8;//以正北方为对地航向 格式：ddd.mm（引自GPVTG语句）。ddd 度。范围：000~359 mm 分。范围：00~59
+  double spkm=9;//对地速度。精确到小数点后一位。单位：千米/时（引自GPVTG语句）
+  uint32 hdop=10;//原协议具有
+  uint32 speed=11;//原协议具有
+  uint64 utctime=12;//原协议具有
+  uint32 indicator=13;//原协议具有
+  uint32 satellites=14;//原协议具有
+  Wifi maac=15;//已连接热点
+  repeated Wifi macs=16;//wifi列表，list
+  BaseStation baseStation=17;//接入的基站
+  repeated BaseStation baseStations=18;//周边的基站信息，list
+}

@@ -1,0 +1,12 @@
+syntax="proto3";
+import "RTCTime.proto";
+option java_outer_classname="RfidActionMsgProto";
+message RfidActionMsg{//0x134，0x135
+    uint64 msgId=1;
+    uint32 type=2;//Integer type = -1;
+    RTCTime rtcDateTime=3;//
+    uint64 timestamp=4;
+    string card=5;//是否是rfid?
+    string deviceId=6;
+    string workid=7;//V3 新增
+}

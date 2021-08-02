@@ -1,4 +1,4 @@
-package com.example.mq_protocol.rabbitmq;
+package com.example.mq_protocol.rabbitmq.simple_sendrecv;
 
 import com.rabbitmq.client.*;
 
