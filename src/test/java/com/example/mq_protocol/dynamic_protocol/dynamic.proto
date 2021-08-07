@@ -6,5 +6,6 @@ message Owner{
   string phone=2;
   int64 age=3;
   repeated House houses=4;
+  House house=5;
 }
 

@@ -1,6 +1,10 @@
 package com.example.mq_protocol.dynamic_protocol;
 
+
+import com.alibaba.fastjson.JSON;
 import com.google.protobuf.*;
+import com.google.protobuf.util.JsonFormat;
+
 
 import java.io.FileInputStream;
 import java.lang.reflect.Method;
@@ -27,18 +31,32 @@ public class DynamicProtocolTest {
         list.add(builder1.build());
         list.add(builder12.build());
 
-
+        ownerbuilder.setHouse(builder1.build());
         ownerbuilder.addAllHouses(list);
+       // System.out.println(JsonFormat.printer().print(ownerbuilder));;
         Ownerpro.Owner owner=ownerbuilder.build();
-
-
+        System.out.println("-------mapstructtest-------");
+        HousePojo housePojo=OwnerConvert.INSTANCE.house1(builder1.build());
+        System.out.println(housePojo.getDanyuan()+housePojo.getLou()+housePojo.xiaoqu1);
+        Housepro.House housepro=OwnerConvert.INSTANCE.house1(housePojo);
+        System.out.println(housepro.getDanyuan()+housepro.getLou()+housepro.getXiaoqu());
+        OwnerPojo ownerPojo1=OwnerConvert.INSTANCE.proto2pojo(owner);
+        System.out.println(ownerPojo1.getAge()+ownerPojo1.getName()+ownerPojo1.getHouse().getLou()/*+ownerPojo1.getHouses().size()*/);
+        System.out.println("-------mapstructtest-------");
 
 
         byte[] ba=owner.toByteArray();
 
+
         ByteString bs=owner.toByteString();
 
+
+
         Ownerpro.Owner owner1=Ownerpro.Owner.parseFrom(ba);
+        String s=JsonFormat.printer().print(owner1);
+        OwnerPojo ownerPojo= JSON.parseObject(s,OwnerPojo.class);
+        //System.out.println(ownerPojo.getAge()+ownerPojo.getName()+ownerPojo.housesList.size());
+
         System.out.println(owner1.getHousesList().size());
 
         /*try {

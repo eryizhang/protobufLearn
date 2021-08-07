@@ -1,0 +1,40 @@
+syntax="proto3";
+enum DownloadResourceTypeEnum{
+  download_resource_type_enum_audio = 0; //音频
+  download_resource_type_enum_vedio = 1;  //视频
+  download_resource_type_enum_picture = 2; //图片
+  download_resource_type_enum_txtfile = 3; //txt文件
+  download_resource_type_enum_wordfile = 4; //word文档
+  download_resource_type_enum_excelfile = 5;  //excel文档
+  download_resource_type_enum_pptfile = 6;    //ppt文档
+  download_resource_type_enum_pdffile = 7;    //pdf文档
+}
+
+message Test {
+   int32 id = 1;
+   string name = 2;
+   string create_time = 3;
+  repeated Item item = 4;
+   DownloadResourceTypeEnum download_resource_type_enum = 5;
+   Item main_item = 6;
+   bool disable = 7;
+   float pre_price = 8;
+  map<string, string> kv = 9;
+  repeated string number = 12;
+  repeated DownloadResourceTypeEnum types = 13;
+  repeated int32 nos = 14;
+}
+
+message Item {
+   int64 item_id = 1;
+   double price = 2;
+   uint32 uint32_count = 3; // 对应java int
+   uint64 uint64_count = 4; // 对应java Long
+   sint32 sint32_count = 5; // 对应java INT 比常规int32更有效地编码负数
+   sint64 sint64_count = 6; // 对应java long 比常规int64更有效地编码负数
+   fixed32 fixed32_count = 7; // 对应java int 总是四个字节。如果值通常大于228，则比uint32更有效
+   fixed64 fixed64_count = 8; // 对应java Long  总是八个字节。如果值通常大于256，则比uint64更有效
+   sfixed32 sfixed32_count = 9; // 对应java INT 总是四个字节。
+   sfixed64 sfixed64_count = 10; // 对应java long 总是八个字节。
+   bytes type = 11; // 不可变的字节数组 不涉及转码 通常用于传输字符流
+}
